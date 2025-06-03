@@ -34,9 +34,9 @@ class DocumentEmbeddingsTable:
         :return: None
         """
 
-        # Drop the table if it exists
-        logger.info("Dropping the table if it exists...")
-        self.cursor.execute("DROP TABLE IF EXISTS document_embeddings;")
+        # # Drop the table if it exists
+        # logger.info("Dropping the table if it exists...")
+        # self.cursor.execute("DROP TABLE IF EXISTS document_embeddings;")
 
         try:
             # Create the table if it doesn't exist
