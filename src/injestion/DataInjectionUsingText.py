@@ -9,7 +9,6 @@ class DataInjectionUsingText:
         self.logger = logger
 
     def inject_data(self, file_id: int,text: str,  model: str):
-
         """
         This function injects semantic data into the database using the file_id.
         Args:
@@ -39,5 +38,5 @@ if __name__ == "__main__":
     data_injector = DataInjectionUsingText()
 
     # Inject data using file_id
-
+    res = data_injector.inject_data(50, "Hello world", "minllm_L6_v2")
     print(res)
