@@ -37,7 +37,6 @@ class DocumentEmbeddingsTable:
         # # Drop the table if it exists
         # logger.info("Dropping the table if it exists...")
         # self.cursor.execute("DROP TABLE IF EXISTS document_embeddings;")
-
         try:
             # Create the table if it doesn't exist
             self.cursor.execute("""
