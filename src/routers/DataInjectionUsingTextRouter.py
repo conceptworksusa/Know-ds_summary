@@ -9,6 +9,7 @@ router = APIRouter(tags=["Ingestion"], prefix="/ingestion")
 
 # Define the available models for summarization
 class Options(str, Enum):
+
     """
     Enum class to define the available options for summarization.
     """
