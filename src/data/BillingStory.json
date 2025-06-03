@@ -1,0 +1,549 @@
+{
+  "DemographicsInfo": {
+    "PatientDateOfBirth": "2000-07-09T00:00:00",
+    "PatientGender": "M",
+    "PatientAddress": "25096 150TH ST",
+    "PatientCity": "DIKE",
+    "PatientState": "IA",
+    "PatientZip": "50624",
+    "PatientControlNumber": "40126829607",
+    "ServiceDateFrom": "2023-07-05T00:00:00",
+    "ServiceDateThrough": "2023-07-10T00:00:00",
+    "Facility": "ALLEN HOSPITAL",
+    "FacilityAddress": "1825 LOGAN AVE",
+    "NPI": "1336231091",
+    "TaxID": "420698265",
+    "RepresentativeName": null,
+    "RepresentativeTitle": null,
+    "RepresentativeEmail": null,
+    "AccountNumber": "401268296",
+    "MedicalRecordNumber": null,
+    "PatientFirstName": "Matthew",
+    "PatientLastName": "Wagner",
+    "PatientNameFirstLast": "Matthew Wagner",
+    "PatientNameLastFirst": "Wagner, Matthew",
+    "BillDate": "2024-12-05",
+    "ClaimControlNumber": null,
+    "FacilityCity": "WATERLOO",
+    "FacilityState": "IA",
+    "FacilityZip": "507031916",
+    "FacilityCityStateZip": "WATERLOO, IA 507031916",
+    "FacilityPhone": null,
+    "GuarantorFirstName": null,
+    "GuarantorLastName": null,
+    "GuarantorAddress": null,
+    "GuarantorCity": null,
+    "GuarantorState": null,
+    "GuarantorZip": null,
+    "AttentionTo": null,
+    "PayerName": "IOWA TOTAL CARE",
+    "PayerAddress1": "PO BOX 843151",
+    "PayerAddress2": null,
+    "PayerCity": "KANSAS CITY",
+    "PayerState": "MO",
+    "PayerZip": "641843151",
+    "PayerPhone": null,
+    "PayerFax": null,
+    "SubscriberFirstName": "MATTHEW",
+    "SubscriberLastName": "WAGNER",
+    "SubscriberId": "2142439I",
+    "SubscriberDateOfBirth": "2000-07-09T00:00:00",
+    "SubscriberGroupName": "IOWA TOTAL CARE",
+    "SubscriberGroupNumber": null
+  },
+  "ClaimInfo": {
+    "ClaimEncounterId": null,
+    "AccountId": 455,
+    "PatientControlNumber": "40126829607",
+    "MedicalRecordNumber": "92541760",
+    "CreationDate": "2024-12-05T00:00:00",
+    "ClaimFilingIndicatorCode": "MC",
+    "Sequence": "P",
+    "ClaimTypeCode": "I",
+    "ProviderName": "ALLEN HOSPITAL",
+    "ProviderAddress": "1825 LOGAN AVE",
+    "ProviderAddress2": null,
+    "ProviderCity": "WATERLOO",
+    "ProviderState": "IA",
+    "ProviderZip": "507031916",
+    "ProviderPhone": null,
+    "PayToName": "ALLEN HOSPITAL",
+    "PayToAddress": "PO BOX 843151",
+    "PayToAddress2": null,
+    "PayToCity": "KANSAS CITY",
+    "PayToState": "MO",
+    "PayToZip": "641843151",
+    "TypeOfBill": "133",
+    "FacilityTypeCode": {
+      "Value": "13",
+      "Description": "",
+      "SequenceOrder": 0
+    },
+    "ClaimFrequencyCode": {
+      "Value": "3",
+      "Description": "Interim - continuing claim",
+      "SequenceOrder": 0
+    },
+    "AdmissionType": {
+      "Value": "3",
+      "Description": "Elective",
+      "SequenceOrder": 0
+    },
+    "AdmissionSource": {
+      "Value": "2",
+      "Description": null,
+      "SequenceOrder": 0
+    },
+    "DischargeStatus": {
+      "Value": "30",
+      "Description": null,
+      "SequenceOrder": 0
+    },
+    "AuthorizationNumber": null,
+    "TotalCharges": 1307.1300,
+    "TotalNonCoveredCharges": 0.0000,
+    "DxReason1": "F411",
+    "DxReason2": null,
+    "DxReason3": null,
+    "DxAdmit": null,
+    "ICD10DiagnosisCodes": [
+      {
+        "Value": "F411",
+        "Description": null,
+        "SequenceOrder": 1
+      },
+      {
+        "Value": "F341",
+        "Description": null,
+        "SequenceOrder": 2
+      },
+      {
+        "Value": "F4311",
+        "Description": null,
+        "SequenceOrder": 3
+      },
+      {
+        "Value": "F900",
+        "Description": null,
+        "SequenceOrder": 4
+      }
+    ],
+    "DRGCode": {
+      "Value": null,
+      "Description": null,
+      "SequenceOrder": 0
+    },
+    "PrimaryDiagnosisCode": {
+      "Value": "F411",
+      "Description": "F411",
+      "SequenceOrder": 0
+    },
+    "AttendingProviderName": "ABBY DOERING",
+    "AttendingProviderNPI": "1962025767",
+    "OperatingProviderName": " ",
+    "OperatingProviderNPI": null,
+    "LineItems": [
+      {
+        "Id": 258823,
+        "ClaimGuid": "10c21da2-1543-4588-b65e-ca2cde71186d",
+        "ClaimId": 0,
+        "InboundFileId": 0,
+        "RevenueCode": {
+          "Value": "905",
+          "Description": "0905",
+          "SequenceOrder": 0
+        },
+        "RevCodeNumeric": null,
+        "Description": null,
+        "Code": "S9480",
+        "Modifiers": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "UnitsBilled": 1.0000,
+        "ServiceDateFrom": "2023-07-05T00:00:00",
+        "ServiceDateThrough": null,
+        "Charges": 435.7100,
+        "NonCoveredCharges": 0.0000,
+        "PosCode": null,
+        "NationalDrugCode": null
+      },
+      {
+        "Id": 258824,
+        "ClaimGuid": "10c21da2-1543-4588-b65e-ca2cde71186d",
+        "ClaimId": 0,
+        "InboundFileId": 0,
+        "RevenueCode": {
+          "Value": "905",
+          "Description": "0905",
+          "SequenceOrder": 0
+        },
+        "RevCodeNumeric": null,
+        "Description": null,
+        "Code": "S9480",
+        "Modifiers": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "UnitsBilled": 1.0000,
+        "ServiceDateFrom": "2023-07-07T00:00:00",
+        "ServiceDateThrough": null,
+        "Charges": 435.7100,
+        "NonCoveredCharges": 0.0000,
+        "PosCode": null,
+        "NationalDrugCode": null
+      },
+      {
+        "Id": 258825,
+        "ClaimGuid": "10c21da2-1543-4588-b65e-ca2cde71186d",
+        "ClaimId": 0,
+        "InboundFileId": 0,
+        "RevenueCode": {
+          "Value": "905",
+          "Description": "0905",
+          "SequenceOrder": 0
+        },
+        "RevCodeNumeric": null,
+        "Description": null,
+        "Code": "S9480",
+        "Modifiers": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "UnitsBilled": 1.0000,
+        "ServiceDateFrom": "2023-07-10T00:00:00",
+        "ServiceDateThrough": null,
+        "Charges": 435.7100,
+        "NonCoveredCharges": 0.0000,
+        "PosCode": null,
+        "NationalDrugCode": null
+      }
+    ]
+  },
+  "RemitInfo": {
+    "Id": "b7cb9e22-7ca3-49b6-a0e8-b074df6ec899",
+    "RemitGuid": "b7cb9e22-7ca3-49b6-a0e8-b074df6ec899",
+    "InboundFileId": 418944,
+    "ReferenceNumber": null,
+    "X12Version": "005010X221A1",
+    "ProductionDate": "2024-12-11T00:00:00",
+    "PaymentMethodCode": "CCP",
+    "TotalPaymentAmount": 131656.4900,
+    "CreditDebitFlagCode": "C",
+    "CheckIssueDate": "2024-12-11T00:00:00",
+    "CheckAmount": 0.0000,
+    "CheckOrEftNumber": "0901330699",
+    "PayerName": "IOWA TOTAL CARE INC",
+    "PayerIdentifier": null,
+    "PayerAddress1": "4900 UNIVERSITY AVE STE 100",
+    "PayerAddress2": null,
+    "PayerCity": "WEST DES MOINES",
+    "PayerState": "IA",
+    "PayerZip": "50266",
+    "PayerContactName": "EDI SUPPORT DESK",
+    "PayerContactNumber": "8002252573",
+    "PayeeName": "ALLEN MEMORIAL HOSPITAL",
+    "PayeeAddress1": "PO BOX 843151",
+    "PayeeAddress2": null,
+    "PayeeCity": "KANSAS CITY",
+    "PayeeState": "MO",
+    "PayeeZip": "64184",
+    "PayeeNpi": "1336231091",
+    "PayeeFederalTaxId": null,
+    "PayerClaimControlNumber": "X340IAE06112",
+    "ClaimStatusCode": "1",
+    "ClaimFilingIndicatorCode": "MC",
+    "PriorAuthNumber": null,
+    "OriginalClaimNumber": null,
+    "FacilityTypeCode": "13",
+    "ClaimFrequencyCode": "3",
+    "TypeOfBill": "0133",
+    "PatientStatusCode": null,
+    "RemarkCodes": [
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "CarcCodes": [
+      "18",
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "Drg": null,
+    "AllowedAmount": 0,
+    "TotalPayments": 0,
+    "TotalAdjustments": 0,
+    "ContractualAdjustments": 0,
+    "NonCoveredCharges": 0.0000,
+    "PatientResponsibilityAmount": 0.0000,
+    "Copay": 0.0000,
+    "Coinsurance": 0.0000,
+    "Deductible": 0.0000,
+    "OriginatingCompanyIdentifier": "1464829006",
+    "RemitClaimLineDetails": [
+      {
+        "Id": 969729,
+        "RemitClaimLineItemGuid": "1b79c208-28b7-4fc6-9936-76221ca6883e",
+        "RemitClaimGuid": "c2c52e67-b972-4f00-a1fd-2a4662007ef4",
+        "CodeType": "CPTHCPCS",
+        "CodeSubType": "HCPCS",
+        "ProcedureCode": {
+          "Value": "S9480",
+          "Description": "Intensive outpatient psychiatric services per diem",
+          "SequenceOrder": 0
+        },
+        "RevenueCode": {
+          "Value": "0905",
+          "Description": null,
+          "SequenceOrder": 0
+        },
+        "Modifiers": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "AllowedAmount": null,
+        "ChargeAmount": 435.7100,
+        "PaymentAmount": 0.0000,
+        "Copay": 0.0000,
+        "Coinsurance": 0.0000,
+        "Deductible": 0.0000,
+        "PatientResponsibilityAmount": 0.0000,
+        "LineItemControlNumber": "40126829607-3",
+        "RemarkCodes": [
+          {
+            "Value": "N522",
+            "Description": "Duplicate of a claim processed, or to be processed, as a crossover claim.",
+            "SequenceOrder": 0
+          },
+          {
+            "Value": null,
+            "Description": null,
+            "SequenceOrder": 0
+          },
+          {
+            "Value": null,
+            "Description": null,
+            "SequenceOrder": 0
+          },
+          {
+            "Value": null,
+            "Description": null,
+            "SequenceOrder": 0
+          },
+          {
+            "Value": null,
+            "Description": null,
+            "SequenceOrder": 0
+          }
+        ],
+        "ServiceDateFrom": "2023-07-10T00:00:00",
+        "ServiceDateThrough": null,
+        "UnitsBilled": null,
+        "SequestrationAmount": 0.0000
+      },
+      {
+        "Id": 969728,
+        "RemitClaimLineItemGuid": "7bdad811-d3cb-4c02-a5d8-79d0738ceca0",
+        "RemitClaimGuid": "c2c52e67-b972-4f00-a1fd-2a4662007ef4",
+        "CodeType": "CPTHCPCS",
+        "CodeSubType": "HCPCS",
+        "ProcedureCode": {
+          "Value": "S9480",
+          "Description": "Intensive outpatient psychiatric services per diem",
+          "SequenceOrder": 0
+        },
+        "RevenueCode": {
+          "Value": "0905",
+          "Description": null,
+          "SequenceOrder": 0
+        },
+        "Modifiers": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "AllowedAmount": null,
+        "ChargeAmount": 435.7100,
+        "PaymentAmount": 0.0000,
+        "Copay": 0.0000,
+        "Coinsurance": 0.0000,
+        "Deductible": 0.0000,
+        "PatientResponsibilityAmount": 0.0000,
+        "LineItemControlNumber": "40126829607-2",
+        "RemarkCodes": [
+          {
+            "Value": "N522",
+            "Description": "Duplicate of a claim processed, or to be processed, as a crossover claim.",
+            "SequenceOrder": 0
+          },
+          {
+            "Value": null,
+            "Description": null,
+            "SequenceOrder": 0
+          },
+          {
+            "Value": null,
+            "Description": null,
+            "SequenceOrder": 0
+          },
+          {
+            "Value": null,
+            "Description": null,
+            "SequenceOrder": 0
+          },
+          {
+            "Value": null,
+            "Description": null,
+            "SequenceOrder": 0
+          }
+        ],
+        "ServiceDateFrom": "2023-07-07T00:00:00",
+        "ServiceDateThrough": null,
+        "UnitsBilled": null,
+        "SequestrationAmount": 0.0000
+      },
+      {
+        "Id": 969727,
+        "RemitClaimLineItemGuid": "416ce653-d36b-41c2-a1f4-de51554ca0d5",
+        "RemitClaimGuid": "c2c52e67-b972-4f00-a1fd-2a4662007ef4",
+        "CodeType": "CPTHCPCS",
+        "CodeSubType": "HCPCS",
+        "ProcedureCode": {
+          "Value": "S9480",
+          "Description": "Intensive outpatient psychiatric services per diem",
+          "SequenceOrder": 0
+        },
+        "RevenueCode": {
+          "Value": "0905",
+          "Description": null,
+          "SequenceOrder": 0
+        },
+        "Modifiers": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "AllowedAmount": null,
+        "ChargeAmount": 435.7100,
+        "PaymentAmount": 0.0000,
+        "Copay": 0.0000,
+        "Coinsurance": 0.0000,
+        "Deductible": 0.0000,
+        "PatientResponsibilityAmount": 0.0000,
+        "LineItemControlNumber": "40126829607-1",
+        "RemarkCodes": [
+          {
+            "Value": "N522",
+            "Description": "Duplicate of a claim processed, or to be processed, as a crossover claim.",
+            "SequenceOrder": 0
+          },
+          {
+            "Value": null,
+            "Description": null,
+            "SequenceOrder": 0
+          },
+          {
+            "Value": null,
+            "Description": null,
+            "SequenceOrder": 0
+          },
+          {
+            "Value": null,
+            "Description": null,
+            "SequenceOrder": 0
+          },
+          {
+            "Value": null,
+            "Description": null,
+            "SequenceOrder": 0
+          }
+        ],
+        "ServiceDateFrom": "2023-07-05T00:00:00",
+        "ServiceDateThrough": null,
+        "UnitsBilled": null,
+        "SequestrationAmount": 0.0000
+      }
+    ],
+    "Adjustments": [
+      {
+        "Id": 1202445,
+        "RemitClaimAdjustmentId": 110271543,
+        "AccountId": 455,
+        "RemitClaimId": 27087317,
+        "RemitClaimGuid": "c2c52e67-b972-4f00-a1fd-2a4662007ef4",
+        "RemitClaimLineItemGuid": "416ce653-d36b-41c2-a1f4-de51554ca0d5",
+        "AdjustmentGroupCode": "CO",
+        "AdjustmentReasonCode": "18",
+        "Description": "Exact duplicate claim/service (Use only with Group Code OA except where state workers\u0027 compensation regulations requires CO)",
+        "Amount": 435.7100,
+        "ParentCode": "8",
+        "ParentDescription": "Duplicate",
+        "IsDenial": true
+      },
+      {
+        "Id": 1202446,
+        "RemitClaimAdjustmentId": 110271544,
+        "AccountId": 455,
+        "RemitClaimId": 27087317,
+        "RemitClaimGuid": "c2c52e67-b972-4f00-a1fd-2a4662007ef4",
+        "RemitClaimLineItemGuid": "7bdad811-d3cb-4c02-a5d8-79d0738ceca0",
+        "AdjustmentGroupCode": "CO",
+        "AdjustmentReasonCode": "18",
+        "Description": "Exact duplicate claim/service (Use only with Group Code OA except where state workers\u0027 compensation regulations requires CO)",
+        "Amount": 435.7100,
+        "ParentCode": "8",
+        "ParentDescription": "Duplicate",
+        "IsDenial": true
+      },
+      {
+        "Id": 1202447,
+        "RemitClaimAdjustmentId": 110271545,
+        "AccountId": 455,
+        "RemitClaimId": 27087317,
+        "RemitClaimGuid": "c2c52e67-b972-4f00-a1fd-2a4662007ef4",
+        "RemitClaimLineItemGuid": "1b79c208-28b7-4fc6-9936-76221ca6883e",
+        "AdjustmentGroupCode": "CO",
+        "AdjustmentReasonCode": "18",
+        "Description": "Exact duplicate claim/service (Use only with Group Code OA except where state workers\u0027 compensation regulations requires CO)",
+        "Amount": 435.7100,
+        "ParentCode": "8",
+        "ParentDescription": "Duplicate",
+        "IsDenial": true
+      }
+    ]
+  },
+  "InsuranceBucket": {
+    "SequenceNumber": 1,
+    "SourceId": 391412,
+    "Balance": 945.00,
+    "PayerCode": "140601",
+    "PayerName": "IOWA TOTAL CARE",
+    "PayerAddress1": null,
+    "PayerAddress2": null,
+    "PayerCity": null,
+    "PayerState": null,
+    "PayerZip": null,
+    "PayerPhone": null,
+    "SubscriberFirstName": "MATTHEW A",
+    "SubscriberLastName": "WAGNER",
+    "SubscriberId": "2142439I",
+    "SubscriberDateOfBirth": null,
+    "SubscriberGroupName": null,
+    "SubscriberGroupNumber": null
+  }
+}
