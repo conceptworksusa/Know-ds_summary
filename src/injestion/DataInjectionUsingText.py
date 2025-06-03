@@ -5,7 +5,6 @@ from fastapi import HTTPException
 
 
 class DataInjectionUsingText:
-
     """
     This class is responsible for injecting semantic data into the database using text input.
     """
