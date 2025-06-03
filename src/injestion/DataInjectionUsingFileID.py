@@ -2,7 +2,8 @@
 from src.conf.Configurations import logger
 from src.utilities.SemanticDataInjestion import SemanticDataInjection
 from fastapi import HTTPException
-from src.database_utilities.DocumentOcrBlockTable import DocumentOcrBlock
+# from src.database_utilities.DocumentOcrBlockTable import DocumentOcrBlock
+from src.database_utilities.GetTextFRomCSV import get_text
 
 
 class DataInjectionUsingFileID:
@@ -20,10 +21,11 @@ class DataInjectionUsingFileID:
 
         """
         try:
+            text = get_text()
 
             # get text using file_id from DocumentOcrBlock table
-            self.logger.info(f"Getting text using file_id: {file_id}")
-            text = DocumentOcrBlock().get_document_text_by_id(file_id)
+            # self.logger.info(f"Getting text using file_id: {file_id}")
+            # text = DocumentOcrBlock().get_document_text_by_id(file_id)
         except Exception as e:
             self.logger.error(f"Error getting text using file_id: {e}")
             raise HTTPException(status_code=500, detail=f"An error occurred getting text using file_id: {e}")

@@ -35,23 +35,23 @@ class DocumentEmbeddingsTable:
         """
 
         # Drop the table if it exists
-        # logger.info("Dropping the table if it exists...")
-        # self.cursor.execute("DROP TABLE IF EXISTS document_embeddings;")
+        logger.info("Dropping the table if it exists...")
+        self.cursor.execute("DROP TABLE IF EXISTS document_embeddings;")
 
-        # try:
-        #     # Create the table if it doesn't exist
-        #     self.cursor.execute("""
-        #         CREATE TABLE IF NOT EXISTS claimbrain.document_embeddings (
-        #             doc_id int,
-        #             chunk_id int,  -- Auto-incrementing chunk ID
-        #             chunk TEXT,
-        #             embeddings vector
-        #         );
-        #     """)
-        #
-        # except Exception as e:
-        #     logger.error(f"Error during table creation: {e}")
-        #     raise HTTPException(status_code=500, detail=f"An error occurred during table creation: {e}")
+        try:
+            # Create the table if it doesn't exist
+            self.cursor.execute("""
+                CREATE TABLE IF NOT EXISTS document_embeddings (
+                    doc_id int,
+                    chunk_id int,  -- Auto-incrementing chunk ID
+                    chunk TEXT,
+                    embeddings vector
+                );
+            """)
+
+        except Exception as e:
+            logger.error(f"Error during table creation: {e}")
+            raise HTTPException(status_code=500, detail=f"An error occurred during table creation: {e}")
 
         try:
 
@@ -60,7 +60,7 @@ class DocumentEmbeddingsTable:
             values = [(doc_id, chunk_id, chunk, chunk_embedding.astype(float).tolist()) for chunk_id, chunk, chunk_embedding in zip(chunk_ids, chunks, embeddings)]
 
             # Creating the insert query
-            query = "INSERT INTO claimbrain.document_embeddings (doc_id, chunk_id, chunk, embeddings) VALUES %s"
+            query = "INSERT INTO document_embeddings (doc_id, chunk_id, chunk, embeddings) VALUES %s"
 
             # Using execute_values to insert the data in bulk
             execute_values(self.cursor, query, values)
@@ -158,4 +158,3 @@ class DocumentEmbeddingsTable:
             logger.info("Closing the cursor and connection...")
             self.cursor.close()
             self.conn.close()
-
