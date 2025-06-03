@@ -42,7 +42,7 @@ OLLAMA_QA_URL = os.getenv("OLLAMA_URL", "http://localhost:8000/llm/ollama/")
 OLLAMA_SUMMARIZATION_URL = os.getenv("OLLAMA_SUMMARIZATION_URL", "http://localhost:8000/llm/ollama/summarization")
 
 # Give the model path for MiniLM-L6-v2
-model_paths = {"minllm_L6_v2": os.getenv("minllm_L6_v2_path", r"C:\llm\MiniLM-L6-v2"),
+model_paths = {"minllm_L6_v2": os.getenv("minllm_L6_v2_path", r"D:\llm\MiniLM-L6-v2"),
                "all_mpnet_base_v2": os.getenv("all_mpnet_base_v2_path", r"C:\Surendra\llm\all_mpnet_base_v2")}
 
 # Define the default model for embeddings
@@ -110,7 +110,7 @@ OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://vmdsdev01.knowtionhealth.
 
 
 # Define the default LLM model to be used
-DEFAULT_LLAMA_MODEL = os.getenv("DEFAULT_LLAMA_MODEL", "llama3.1")
+DEFAULT_LLAMA_MODEL = os.getenv("DEFAULT_LLAMA_MODEL", "llama3.2:1b")
 
 # Define verbose mode
 VERBOSE = os.getenv("VERBOSE", False)
@@ -120,11 +120,13 @@ VERBOSE = os.getenv("VERBOSE", False)
 db_config = {
         "dbname": "postgres",
         "user": "postgres",
-        "password": "postgres",
+        "password": "secret",
         "host": "localhost",
-        "port": 5432,
+        "port": 5433,
     }
 
 
-csv_path = r"C:\Docs\knowtion.csv"
+
+
+csv_path = "C:\Docs\knowtion.csv"
 

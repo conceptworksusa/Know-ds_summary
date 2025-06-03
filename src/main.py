@@ -7,7 +7,8 @@ from src.routers.OllamaQuestionAnsRouter import router as ollama_qa_router
 from src.routers.OllamaSummarizerRouter import router as ollama_summarizer_router
 from src.routers.EmbeddingsGeneratorRouter import router as embeddings_generator_router
 from src.routers.OllamaCustomSummarizerRouter import router as ollama_custom_summarizer_router
-from src.routers.DataInjectionUsingFileIDRouter import router as data_injection_using_file_id_router
+from src.routers.DataInjectionUisngFileIDRouter import router as data_injection_using_file_id_router
+from src.routers.DataInjectionUsingTextRouter import router as data_injection_using_text_router
 from src.routers.TextSummarizeAndStoreRouter import router as text_summarize_and_store_router
 
 from fastapi.middleware.cors import CORSMiddleware
@@ -47,3 +48,6 @@ app.include_router(data_injection_using_file_id_router)
 
 # Include the text summarize and store router
 app.include_router(text_summarize_and_store_router)
+
+# Include the data injection using text router
+app.include_router(data_injection_using_text_router)
