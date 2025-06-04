@@ -21,9 +21,7 @@ class DataInjectionUsingText:
 
         """
         try:
-            # Input validation
-            if not text or text.strip() == "":
-                raise HTTPException(status_code=400, detail="Text input is missing or empty.")
+           
             # Inject semantic data
             self.logger.info("Injecting semantic data...")
             response = SemanticDataInjection().inject_semantic_data(text, file_id, model)
