@@ -22,7 +22,6 @@ class DataInjectionUsingFileID:
         """
         try:
             text = get_text()
-
             # get text using file_id from DocumentOcrBlock table
             # self.logger.info(f"Getting text using file_id: {file_id}")
             # text = DocumentOcrBlock().get_document_text_by_id(file_id)
