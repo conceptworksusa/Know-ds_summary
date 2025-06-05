@@ -11,7 +11,7 @@ class SemanticDataInjection :
         """
         self.logger = logger
 
-    def inject_semantic_data(self, text, file_id: int, model: str):
+    def inject_semantic_data(self, page_nums, texts, file_id: int, model: str):
         """"
         This function tokenizes and embeds the text, performs late chunking, and stores the chunks in the database.
 
@@ -23,24 +23,43 @@ class SemanticDataInjection :
         """
 
         # check the document_exits in the database
-        # if SemanticTable().document_exists(file_id):
-        #     self.logger.info(f"Document with file_id {file_id} already exists in the database. Skipping...")
-        #     return "Document already exists"
+        if DocumentEmbeddingsTable().document_exists(file_id):
+            self.logger.info(f"Document with file_id {file_id} already exists in the database. Skipping...")
+            return "Document already exists"
 
-        tokens = text.split()
+        # Check if the input is valid
+        all_sentences = list(zip(page_nums, texts))
 
-        # Creating chunks by splitting the text into chunks with a specified size
-        logger.info(f"Tokenizing text...  With chunk size: {CHUNK_SIZE_FOR_EMBEDDINGS}")
-        chunks = [" ".join(tokens[i:i + CHUNK_SIZE_FOR_EMBEDDINGS]) for i in
-                  range(0, len(tokens), CHUNK_SIZE_FOR_EMBEDDINGS)]
+        # Flatten tokens while keeping page numbers
+        flat_tokens = [
+            (pg, token)
+            for pg, txt in all_sentences
+            for token in txt.split()  # simple whitespace split
+        ]
+
+        # Chunk into 128-token blocks
+        chunk_size = 20
+        start_pages = []
+        end_pages = []
+        text_chunks = []
+
+        # Iterate through the flat tokens and create chunks
+        for i in range(0, len(flat_tokens), chunk_size):
+            chunk_tokens = flat_tokens[i:i + chunk_size]
+            start_page = chunk_tokens[0][0]
+            end_page = chunk_tokens[-1][0]
+            text_chunk = " ".join(token for _, token in chunk_tokens)
+            start_pages.append(start_page)
+            end_pages.append(end_page)
+            text_chunks.append(text_chunk)
 
         # Generate embeddings for individual chunks
-        embeddings = EmbeddingsGenerator(model).get_embeddings(chunks)
+        embeddings = EmbeddingsGenerator(model).get_embeddings(text_chunks)
 
 
         # Store chunks in database
         self.logger.info("Storing chunks in the database...")
-        DocumentEmbeddingsTable().store_chunks_in_db(chunks, embeddings, file_id)
+        DocumentEmbeddingsTable().store_chunks_in_db(start_pages, end_pages, text_chunks, embeddings, file_id)
 
         return "Semantic data injected successfully"
 

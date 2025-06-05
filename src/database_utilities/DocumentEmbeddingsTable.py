@@ -25,7 +25,7 @@ class DocumentEmbeddingsTable:
 
 
     # Function to store chunks in the database
-    def store_chunks_in_db(self, chunks, embeddings, doc_id: int):
+    def store_chunks_in_db(self,start_pages, end_pages, chunks, embeddings, doc_id: int):
         """
         This function stores the chunks in the database with a unique doc_id.
         :param chunks: The list of chunks.
@@ -42,6 +42,8 @@ class DocumentEmbeddingsTable:
             self.cursor.execute("""
                 CREATE TABLE IF NOT EXISTS document_embeddings (
                     doc_id int,
+                    start_page int,  -- Start page number
+                    end_page int,    -- End page number
                     chunk_id int,  -- Auto-incrementing chunk ID
                     chunk TEXT,
                     embeddings vector
@@ -55,11 +57,12 @@ class DocumentEmbeddingsTable:
         try:
 
             chunk_ids = range(1,len(chunks)+1)
+
             # Creating the values to be inserted
-            values = [(doc_id, chunk_id, chunk, chunk_embedding.astype(float).tolist()) for chunk_id, chunk, chunk_embedding in zip(chunk_ids, chunks, embeddings)]
+            values = [(doc_id, start_page, end_page, chunk_id, chunk, chunk_embedding.astype(float).tolist()) for start_page, end_page, chunk_id, chunk, chunk_embedding in zip(start_pages, end_pages, chunk_ids, chunks, embeddings)]
 
             # Creating the insert query
-            query = "INSERT INTO document_embeddings (doc_id, chunk_id, chunk, embeddings) VALUES %s"
+            query = "INSERT INTO document_embeddings (doc_id, start_page, end_page, chunk_id, chunk, embeddings) VALUES %s"
 
             # Using execute_values to insert the data in bulk
             execute_values(self.cursor, query, values)
@@ -122,7 +125,7 @@ class DocumentEmbeddingsTable:
         :return: True if document exists, otherwise False.
         """
         try:
-            self.cursor.execute("SELECT COUNT(*) FROM claimbrain.document_embeddings WHERE doc_id = %s", (doc_id,))
+            self.cursor.execute("SELECT COUNT(*) FROM document_embeddings WHERE doc_id = %s", (doc_id,))
             count = self.cursor.fetchone()[0]
             return count > 0
         except Exception as e:
