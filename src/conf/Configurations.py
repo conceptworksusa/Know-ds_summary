@@ -85,7 +85,7 @@ POSTGRES_DB_CONFIG = {
         "host": os.getenv("POSTGRES_HOST", "psql-kh-dev-eus2-01.postgres.database.azure.com"),
         "user": os.getenv("POSTGRES_USER", "Azure PostgreSQL Admin Dev"),
         #"user": os.getenv("POSTGRES_USER", "id-kh-app-dev-eus2"), # id-kh-app-dev-eus2
-        "ssl_mode":os.getenv("POSTGRES_SSL_MODE", 'prefer'),
+        "ssl_mode":os.getenv("POSTGRES_SSL_MODE", ' prefer'),
         "pg_client_id": os.getenv('PG_CLIENT_ID', '587261c4-d766-44a2-adbe-96c8467b7575')
     }
 
@@ -105,12 +105,11 @@ CHUNK_OVERlAP_FOR_SUMMARIZATION = os.getenv("CHUNK_OVERlAP_FOR_SUMMARIZATION", 1
 MAX_TOKENS_FOR_SUMMARIZATION = os.getenv("MAX_TOKENS_FOR_SUMMARIZATION", 10000)
 
 # Define base url for invoking the llama3 model through ollama
-#OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://127.0.0.1:11434")
-OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://vmdsdev01.knowtionhealth.lan:11434/")
+OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://127.0.0.1:11434")
 
 
 # Define the default LLM model to be used
-DEFAULT_LLAMA_MODEL = os.getenv("DEFAULT_LLAMA_MODEL", "llama3.1")
+DEFAULT_LLAMA_MODEL = os.getenv("DEFAULT_LLAMA_MODEL", "llama3.2:1b")
 
 # Define verbose mode
 VERBOSE = os.getenv("VERBOSE", False)

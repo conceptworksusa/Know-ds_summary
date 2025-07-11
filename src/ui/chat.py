@@ -10,8 +10,8 @@ op_key = f"{page_id}_operation"
 
 header.show_sidebar_logo("How can I help you!")
 
-#sys.path.append(r'C:\Users\skarnatapu\source\repos\Knowtion-ds_summary\KnowtionServices')
-sys.path.append(r'/code')
+sys.path.append(r'C:\PycharmProjects\Knowtion-ds_summary')
+# sys.path.append(r'/code')
 
 
 from src.api.GenChat import GenChat
