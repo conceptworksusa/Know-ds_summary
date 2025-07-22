@@ -5,7 +5,8 @@ from src.retrival.SemanticRetrival import SemanticRetrival
 from fastapi import HTTPException
 
 class Retrival:
-    @staticmethod
+    def __init__(self):
+        pass
     def get_similar_documents(query: str, doc_id):
         """
         Get similar documents for the given query using semantic retrival and tf-idf retrival

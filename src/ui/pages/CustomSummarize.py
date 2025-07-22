@@ -2,7 +2,7 @@
 import streamlit as st
 import sys
 
-sys.path.append(r'C:\Users\skarnatapu\source\repos\Knowtion-ds_summary\KnowtionServices')
+sys.path.append(r'C:\PycharmProjects\Knowtion-ds_summary')
 from src.api.TextSummarizer import TextSummarizer
 from src.conf.Prompts import system_prompt
 from src.ui import header

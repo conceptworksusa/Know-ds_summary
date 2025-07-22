@@ -1,8 +1,8 @@
-# Import necessary libraries
+  # Import necessary libraries
 import streamlit as st
 import sys
 
-sys.path.append(r'C:\Users\skarnatapu\source\repos\Knowtion-ds_summary\KnowtionServices')
+sys.path.append(r'C:\PycharmProjects\Knowtion-ds_summary')
 from src.api.OllamaParser import OllamaParser
 
 from src.ui import header

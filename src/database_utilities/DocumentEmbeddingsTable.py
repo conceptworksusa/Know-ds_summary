@@ -94,7 +94,7 @@ class DocumentEmbeddingsTable:
             self.cursor.execute(
                 """
                 SELECT chunk, 1 - (embeddings <=> %s::vector) AS similarity
-                FROM claimbrain.document_embeddings Where doc_id = %s
+                FROM document_embeddings Where doc_id = %s
                 ORDER BY similarity DESC
                 LIMIT %s;
                 """,

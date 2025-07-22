@@ -1,5 +1,5 @@
 from fastapi import HTTPException
-from src.conf.Configurations import logger, DEFAULT_LLAMA_MODEL
+from src.conf.Configurations import logger, DEFAULT_LLAMA_MODEL, SAMPLE_JSON
 from src.utilities.OllamaPipeline import OllamaPipeline
 from src.conf.Prompts import system_prompt_for_json
 import json
@@ -46,7 +46,7 @@ class OllamaParser:
 
         try:
             logger.info("Invoking the model with the input prompt.")
-            response = self.model.invoke(input=prompt, options={"num_ctx": 20000})
+            response = self.model.invoke(input=prompt, options={"num_ctx": 2000})
             logger.info("Response received from the model.")
 
             return response
@@ -65,21 +65,28 @@ class OllamaParser:
             str: The generated summary.
         """
 
-        # Open the JSON file and load its content
-        with open(file_paths[file_name], 'r') as file:
-            d = json.load(file)
+        # # Open the JSON file and load its content
+        # with open(file_paths[file_name], 'r') as file:
+        #     d = json.load(file)
+        #
+        #
+        # # Convert each item in the dictionary to a JSON string with key-value pairs
+        # final_summary = ""
+        # for key, value in d.items():
+        #     json_string = f'"{key}" : {json.dumps(value)}'
+        #
+        #
+        #     # Generate the summary using the Ollama model
+        #     summary = self.parsing_with_ollama(json_string)
+        #
+        #     # Append the summary to the final summary string
+        #     final_summary += f"{summary}\n"
 
+        # TODO: Remove after testing
+        json_string = SAMPLE_JSON
 
-        # Convert each item in the dictionary to a JSON string with key-value pairs
-        final_summary = ""
-        for key, value in d.items():
-            json_string = f'"{key}" : {json.dumps(value)}'
-
-            # Generate the summary using the Ollama model
-            summary = self.parsing_with_ollama(json_string)
-
-            # Append the summary to the final summary string
-            final_summary += f"{summary}\n"
+        # Generate the summary using the Ollama model
+        final_summary = self.parsing_with_ollama(json_string)
 
         return final_summary
 
