@@ -1,8 +1,12 @@
 # Importing necessary classes
-from fastapi import APIRouter
+from fastapi import APIRouter, Body
 from src.api.OllamaSummarizer import OllamaSummarizer
 from typing import Optional
 from enum import Enum
+from pydantic import BaseModel
+
+class Text(BaseModel):
+    text: str
 
 # Initialize the router
 router = APIRouter(
@@ -15,12 +19,12 @@ class Options(str, Enum):
     """
     Enum class to define the available options for summarization.
     """
-    model_1  = "llama3.1"   # Llama 3.1:latest model
+    model_1  = "llama3.2:1b"   # Llama 3.1:latest model
     model_2 = "Mistral"     # Mistral:latest model
 
 
 @router.post("/ollama/summarization_/")
-async def summarize_text_data(text: str, llama_model: Optional[Options] = Options.model_1):
+async def summarize_text_data(text: str = Body(..., media_type="text/plain"), llama_model: Optional[Options] = Options.model_1):
     """
     Summarizes the given context using the Ollama model.
 

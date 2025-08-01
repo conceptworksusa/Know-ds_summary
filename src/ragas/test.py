@@ -19,14 +19,14 @@ class RAGASEvaluator:
             model=ollama_model
         )
 
-        # Load sentence transformer embedding model
-        if os.path.exists(embed_model_path_or_name):
-            pass
-            # self.embedding_model = SentenceTransformer(embed_model_path_or_name)
-        else:
-            print(f"⚠️ Model not found at {embed_model_path_or_name}. Downloading from HuggingFace...")
-            self.embedding_model = SentenceTransformer(embed_model_path_or_name)
-            self.embedding_model.save(embed_model_path_or_name)
+        # # Load sentence transformer embedding model
+        # if os.path.exists(embed_model_path_or_name):
+        #     pass
+        #     # self.embedding_model = SentenceTransformer(embed_model_path_or_name)
+        # else:
+        #     print(f"⚠️ Model not found at {embed_model_path_or_name}. Downloading from HuggingFace...")
+        #     self.embedding_model = SentenceTransformer(embed_model_path_or_name)
+        #     self.embedding_model.save(embed_model_path_or_name)
 
         # Define RAGAS metrics
         self.metrics = [
