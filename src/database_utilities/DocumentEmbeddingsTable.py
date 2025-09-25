@@ -160,3 +160,49 @@ class DocumentEmbeddingsTable:
             logger.info("Closing the cursor and connection...")
             self.cursor.close()
             self.conn.close()
+    def fetch_top_chunks_batch(self, doc_id, query_embeddings, top_n, threshold):
+        """
+        Fetch top-N chunks for a list of query embeddings from a given doc_id.
+
+        :param doc_id: document id to filter
+        :param query_embeddings: list of embeddings (list of list/array)
+        :param top_n: number of top matches per query
+        :param threshold: similarity threshold
+        """
+
+        # Build VALUES dynamically
+        values_sql = []
+        params = []
+        for i, emb in enumerate(query_embeddings, start=1):
+            values_sql.append(f"(%s, %s::vector)")
+            params.extend([i, emb.tolist()])  # query_id + embedding
+
+        values_sql = ", ".join(values_sql)
+
+        query = f"""
+        WITH queries AS (
+            SELECT * FROM (VALUES {values_sql}) AS q(query_id, query_embedding)
+        )
+        SELECT 
+            c.chunk_id,
+            CONCAT('Page number: ',c.start_page, ' ,   ',  c.chunk) AS concatenated_column
+        FROM queries q
+        JOIN LATERAL (
+            SELECT chunk_id, start_page, chunk, embeddings
+            FROM claimbrain.document_embeddings c
+            WHERE c.doc_id = %s
+              AND (1 - (c.embeddings <=> q.query_embedding)) >= %s
+            ORDER BY (1 - (c.embeddings <=> q.query_embedding)) DESC
+            LIMIT %s
+        ) c ON true
+        ORDER BY q.query_id, (1 - (c.embeddings <=> q.query_embedding)) DESC;
+        """
+
+        # Add common params (doc_id, threshold, top_n) at the end
+        params.extend([doc_id, threshold, top_n])
+
+        # Execute query
+        self.cursor.execute(query, params)
+        results = self.cursor.fetchall()
+        return results
+
