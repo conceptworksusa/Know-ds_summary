@@ -1,0 +1,402 @@
+#!/usr/bin/env python3
+"""
+Simple Voice Assistant - Clean and working version
+"""
+
+import streamlit as st
+import streamlit.components.v1 as components
+import time
+
+# Streamlit page configuration
+st.set_page_config(
+    page_title="Voice Assistant",
+    page_icon="🎤",
+    layout="wide",
+    initial_sidebar_state="collapsed"
+)
+
+# Custom class for processing queries
+class QueryProcessor:
+    def __init__(self):
+        self.query_history = []
+    
+    def process_query(self, query):
+        """Process the query and return a response"""
+        # Add query to history
+        self.query_history.append({
+            'query': query,
+            'timestamp': time.time(),
+            'response': f"Processed: {query}"
+        })
+        
+        # Simple processing logic - replace with your actual processing
+        response = f"AI Response: I received your query '{query}'. This is a placeholder response."
+        
+        return response
+
+# Initialize the query processor
+if 'query_processor' not in st.session_state:
+    st.session_state.query_processor = QueryProcessor()
+
+# Clean UI
+st.title("🎤 Voice Assistant")
+
+# Browser compatibility check
+st.markdown("**Browser Compatibility Check:**")
+browser_check_html = """
+<div id="browserInfo" style="padding: 15px; background: #e9ecef; border-radius: 8px; margin: 10px 0; font-family: monospace;">
+    <div style="font-weight: bold; margin-bottom: 10px;">🔍 Checking your browser...</div>
+    <div id="checkResults"></div>
+</div>
+<script>
+function checkBrowserSupport() {
+    var results = '';
+    
+    // Check browser
+    results += '<div>🌐 Browser: ' + navigator.userAgent.split(' ').slice(-2).join(' ') + '</div>';
+    
+    // Check speech recognition
+    results += '<div>🎤 Speech Recognition: ';
+    if ('webkitSpeechRecognition' in window) {
+        results += '✅ WebKit supported (Chrome/Edge)';
+    } else if ('SpeechRecognition' in window) {
+        results += '✅ Standard supported (Firefox)';
+    } else {
+        results += '❌ Not supported - Use Chrome or Edge for best results';
+    }
+    results += '</div>';
+    
+    // Check microphone API
+    results += '<div>🎙️ Microphone API: ';
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        results += '✅ Available';
+    } else {
+        results += '❌ Not available';
+    }
+    results += '</div>';
+    
+    // Check HTTPS
+    results += '<div>🔒 HTTPS: ';
+    if (location.protocol === 'https:') {
+        results += '✅ Secure connection';
+    } else {
+        results += '⚠️ HTTP - Voice features may not work (use HTTPS or localhost)';
+    }
+    results += '</div>';
+    
+    document.getElementById('checkResults').innerHTML = results;
+}
+
+// Run check immediately
+checkBrowserSupport();
+</script>
+"""
+components.html(browser_check_html, height=120)
+
+# Create two columns: query input and mic button
+col1, col2 = st.columns([4, 1])
+
+with col1:
+    text_query = st.text_input("Enter your query:", placeholder="Type or speak your question...", key="query_input")
+
+with col2:
+    # Simple microphone button
+    if st.button("🎤", key="mic_btn", help="Click to speak", type="primary", use_container_width=True):
+        st.session_state.voice_triggered = True
+        st.write("🎤 **Button clicked!** Voice triggered state set.")
+
+# Debug: Show current session state
+if st.checkbox("Show Debug Info", key="debug_check"):
+    st.write("**Current Session State:**")
+    st.write(st.session_state)
+
+# Process text query automatically
+if text_query and text_query.strip():
+    st.session_state.text_query = text_query.strip()
+    st.session_state.voice_triggered = False
+
+# Voice input processing
+if hasattr(st.session_state, 'voice_triggered') and st.session_state.voice_triggered:
+    st.session_state.voice_triggered = False
+    
+    # Show that voice capture is starting
+    st.info("🎤 Voice capture started - listening for one phrase, then will stop automatically")
+    
+    # Debug info
+    st.write("🔍 **Debug Info:** Voice triggered state detected")
+    
+    # Simple voice recognition component
+    voice_html = """
+    <div id="voice-status" style="padding: 10px; background: #f0f8ff; border-radius: 5px; margin: 10px 0; text-align: center; font-weight: bold;">
+        Starting voice capture...
+    </div>
+    <script>
+    let recognition = null;
+    let isListening = false;
+    
+    function captureVoice() {
+        if (isListening) {
+            document.getElementById('voice-status').innerHTML = '⏳ Please wait, processing previous request...';
+            return;
+        }
+        
+        document.getElementById('voice-status').innerHTML = '🔍 Checking browser support...';
+        
+        // Check browser support
+        if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+            document.getElementById('voice-status').innerHTML = '❌ Speech recognition not supported. Please use Chrome, Edge, or Safari.';
+            return;
+        }
+        
+        // Check if we're on HTTPS or localhost
+        const isSecure = location.protocol === 'https:' || 
+                        location.hostname === 'localhost' || 
+                        location.hostname === '127.0.0.1';
+        
+        if (!isSecure) {
+            document.getElementById('voice-status').innerHTML = '🔒 HTTPS or localhost required for microphone access.';
+            return;
+        }
+        
+        document.getElementById('voice-status').innerHTML = '🎤 Requesting microphone permission...';
+        
+        // Request microphone permission first
+        navigator.mediaDevices.getUserMedia({ audio: true })
+            .then(() => {
+                document.getElementById('voice-status').innerHTML = '✅ Microphone ready, starting recognition...';
+                startSpeechRecognition();
+            })
+            .catch((error) => {
+                console.error('Microphone permission denied:', error);
+                let errorMessage = '❌ Microphone access denied. ';
+                if (error.name === 'NotAllowedError') {
+                    errorMessage += 'Please allow microphone access and try again.';
+                } else if (error.name === 'NotFoundError') {
+                    errorMessage += 'No microphone found. Please connect a microphone.';
+                } else if (error.name === 'NotReadableError') {
+                    errorMessage += 'Microphone is being used by another application.';
+                } else {
+                    errorMessage += 'Error: ' + error.message;
+                }
+                document.getElementById('voice-status').innerHTML = errorMessage;
+            });
+    }
+    
+    function startSpeechRecognition() {
+        document.getElementById('voice-status').innerHTML = '🎤 Starting single-phrase recognition...';
+        
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        recognition = new SpeechRecognition();
+        
+        recognition.lang = 'en-US';
+        recognition.continuous = false;  // Single phrase only
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 1;
+        
+        recognition.onstart = function() {
+            console.log('Speech recognition started');
+            isListening = true;
+            document.getElementById('voice-status').innerHTML = '🎤 Listening for one phrase... Speak now!';
+        };
+        
+        recognition.onresult = function(event) {
+            console.log('Speech recognition result:', event);
+            const transcript = event.results[0][0].transcript;
+            document.getElementById('voice-status').innerHTML = '✅ You said: "' + transcript + '" - Processing...';
+            
+            if (transcript.trim()) {
+                submitVoiceQuery(transcript);
+            }
+        };
+        
+        recognition.onerror = function(event) {
+            console.error('Speech recognition error:', event.error);
+            isListening = false;
+            
+            let errorMessage = '❌ Speech recognition error: ';
+            switch(event.error) {
+                case 'no-speech':
+                    errorMessage = '🎤 No speech detected. Please try speaking again.';
+                    break;
+                case 'audio-capture':
+                    errorMessage = '🎙️ Microphone not accessible. Please check microphone permissions.';
+                    break;
+                case 'not-allowed':
+                    errorMessage = '🔒 Microphone access denied. Please allow microphone access.';
+                    break;
+                case 'network':
+                    errorMessage = '🌐 Network error. Please check your internet connection.';
+                    break;
+                case 'service-not-allowed':
+                    errorMessage = '🚫 Speech recognition service not allowed.';
+                    break;
+                case 'bad-grammar':
+                    errorMessage = '📝 Speech recognition grammar error.';
+                    break;
+                case 'language-not-supported':
+                    errorMessage = '🌍 Language not supported.';
+                    break;
+                default:
+                    errorMessage += event.error;
+            }
+            
+            document.getElementById('voice-status').innerHTML = errorMessage;
+        };
+        
+        recognition.onend = function() {
+            console.log('Speech recognition ended');
+            isListening = false;
+            document.getElementById('voice-status').innerHTML = '⏹️ Voice capture ended. Click the microphone button again to speak.';
+            
+            // Clean up recognition object
+            if (recognition) {
+                recognition.stop();
+                recognition = null;
+            }
+        };
+        
+        try {
+            recognition.start();
+        } catch (error) {
+            console.error('Failed to start speech recognition:', error);
+            document.getElementById('voice-status').innerHTML = '❌ Failed to start speech recognition. Please try again.';
+            isListening = false;
+        }
+    }
+    
+    function submitVoiceQuery(transcript) {
+        document.getElementById('voice-status').innerHTML = '📤 Submitting voice query to backend...';
+        
+        // Submit voice query exactly like typed query
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = window.location.href;
+        
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'voice_transcript';
+        input.value = transcript;
+        
+        form.appendChild(input);
+        document.body.appendChild(form);
+        form.submit();
+    }
+    
+    // Start voice capture immediately
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(captureVoice, 100);
+    });
+    </script>
+    """
+    
+    components.html(voice_html, height=100)
+
+# Handle text query with TTS
+if hasattr(st.session_state, 'text_query'):
+    query = st.session_state.text_query
+    del st.session_state.text_query
+    
+    # Process the query
+    response = st.session_state.query_processor.process_query(query)
+    
+    # Display response
+    st.write(f"**Response:** {response}")
+    
+    # Simple TTS for text response
+    tts_html = f"""
+    <div id="tts-status" style="padding: 10px; background: #e8f5e8; border-radius: 5px; margin: 10px 0; text-align: center; font-weight: bold;">
+        🔊 Preparing to speak response...
+    </div>
+    <script>
+    function speakText(text) {{
+        if ('speechSynthesis' in window) {{
+            // Cancel any ongoing speech
+            speechSynthesis.cancel();
+            
+            var utterance = new SpeechSynthesisUtterance(text);
+            utterance.rate = 0.9;
+            utterance.pitch = 1.0;
+            utterance.volume = 0.8;
+            
+            utterance.onstart = function() {{
+                document.getElementById('tts-status').innerHTML = '🔊 Speaking response...';
+            }};
+            
+            utterance.onend = function() {{
+                document.getElementById('tts-status').innerHTML = '✅ Response spoken successfully.';
+            }};
+            
+            utterance.onerror = function(event) {{
+                document.getElementById('tts-status').innerHTML = '❌ Speech synthesis error: ' + event.error;
+            }};
+            
+            speechSynthesis.speak(utterance);
+        }} else {{
+            document.getElementById('tts-status').innerHTML = '❌ Text-to-speech not supported in this browser.';
+        }}
+    }}
+    
+    // Start TTS
+    document.addEventListener('DOMContentLoaded', function() {{
+        setTimeout(function() {{
+            speakText('{response.replace("'", "\\'")}');
+        }}, 100);
+    }});
+    </script>
+    """
+    components.html(tts_html, height=0)
+
+# Handle voice transcript - use same processing as text queries
+if 'voice_transcript' in st.query_params:
+    query = st.query_params['voice_transcript']
+    
+    # Debug: Show that voice transcript was received
+    st.write(f"🎤 **Voice Query Received:** {query}")
+    
+    # Process the query using the same mechanism as text queries
+    response = st.session_state.query_processor.process_query(query)
+    
+    # Display response exactly like typed query
+    st.write(f"**Response:** {response}")
+    
+    # Simple TTS for voice response
+    tts_html = f"""
+    <div id="voice-tts-status" style="padding: 10px; background: #e8f5e8; border-radius: 5px; margin: 10px 0; text-align: center; font-weight: bold;">
+        🔊 Preparing to speak voice response...
+    </div>
+    <script>
+    function speakVoiceResponse(text) {{
+        if ('speechSynthesis' in window) {{
+            speechSynthesis.cancel();
+            var utterance = new SpeechSynthesisUtterance(text);
+            utterance.rate = 0.9;
+            utterance.pitch = 1.0;
+            utterance.volume = 0.8;
+            
+            utterance.onstart = function() {{
+                document.getElementById('voice-tts-status').innerHTML = '🔊 Speaking voice response...';
+            }};
+            
+            utterance.onend = function() {{
+                document.getElementById('voice-tts-status').innerHTML = '✅ Voice response spoken successfully.';
+            }};
+            
+            utterance.onerror = function(event) {{
+                document.getElementById('voice-tts-status').innerHTML = '❌ Voice response speech error: ' + event.error;
+            }};
+            
+            speechSynthesis.speak(utterance);
+        }} else {{
+            document.getElementById('voice-tts-status').innerHTML = '❌ Text-to-speech not supported in this browser.';
+        }}
+    }}
+    
+    // Start voice response TTS
+    document.addEventListener('DOMContentLoaded', function() {{
+        setTimeout(function() {{
+            speakVoiceResponse('{response.replace("'", "\\'")}');
+        }}, 100);
+    }});
+    </script>
+    """
+    components.html(tts_html, height=0)
