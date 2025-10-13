@@ -1,6 +1,17 @@
 import psycopg2
 import json
 
+import re
+
+pattern = r'(?:[vV]\s*\d+(?:\.\d+)*|\b\d+(?:\.\d+)*)'
+
+texts = ["abc v1.2", "test V1", "hello 1.3", "V 2.0", "ver10.2.5", "abc123"]
+
+for t in texts:
+    match = re.search(pattern, t)
+    if match:
+        print(f"{t!r} → {match.group(0)}")
+
 # ---------- DATABASE CONFIG ----------
 DB_CONFIG = {
     "dbname": "your_database_name",
